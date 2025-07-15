@@ -1,7 +1,9 @@
 services:
   wordpress:
-    image: wordpress:6.5-php8.3-fpm
-    container_name: wp-core
+    build:
+      context: ./wordpress
+      dockerfile: Dockerfile
+    container_name: dev-wordpress
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: root
@@ -39,7 +41,7 @@ services:
 
   nginx:
     image: nginx:stable
-    container_name: dev_nginx
+    container_name: dev-nginx
     ports:
       - "8081:80"
     volumes:
