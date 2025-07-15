@@ -33,5 +33,5 @@ fi
 
 echo "WordPress is now running!"
 echo ""
-echo "You can view your site at http://localhost:8081/"
-echo "Or browse your databse in PhpMyAdmin at http://localhost:8080/"
+echo "You can view your site at http://localhost:8081/."
+echo "Or browse your databse in PhpMyAdmin at http://localhost:8080/."

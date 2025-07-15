@@ -1,7 +1,7 @@
 services:
   wordpress:
     build:
-      context: ./wordpress
+      context: ./docker/wordpress
       dockerfile: Dockerfile
     container_name: dev-wordpress
     environment:
