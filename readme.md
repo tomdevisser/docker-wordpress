@@ -1,4 +1,4 @@
-# Sail | 🐳 A Dockerized WordPress Development Stack
+# Sail 🐳 | A Docker Environment for WordPress Development
 
 This repository provides a fully containerized WordPress development environment using Docker Compose. It includes:
 
