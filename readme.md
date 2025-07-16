@@ -7,6 +7,8 @@ This repository provides a fully containerized WordPress development environment
 - MySQL
 - phpMyAdmin
 - WordPress core
+- TLS certificates
+- Custom domain mapping
 - WP-CLI for automation (with theme auto-activation and plugin cleanup)
 - Custom `sail.sh` and `dock.sh` scripts for easy bootstrapping and teardown
 
@@ -14,6 +16,7 @@ This repository provides a fully containerized WordPress development environment
 
 - [Docker](https://docs.docker.com/get-docker/) installed and running on your system  
   (Docker Desktop is optional — any Docker-compatible runtime works)
+- [`mkcert`](https://github.com/FiloSottile/mkcert) installed for generating trusted local TLS certificates
 - A WordPress theme folder (your own or cloned from Git)
 
 ---
@@ -21,10 +24,11 @@ This repository provides a fully containerized WordPress development environment
 ## Getting Started
 
 1. Place your theme files inside the `theme/` directory.
-2. If you want to rename the theme folder, search and replace `theme` in the config files.
-3. Ensure Docker is installed and running.
-4. Run `sail.sh` to start the environment.
-5. Run `dock.sh` to stop the environment.
+2. If you'd like to rename the `theme` folder, update all references to `theme` in the config files (`docker-compose.yml`, `sail.conf`, etc.).
+3. Copy `sail.sample.conf` to `sail.conf` and edit your preferred domain name.
+4. Run `sail.sh` to build and start the environment.
+5. Visit https://yourdomain.sail/ to view the site, and https://pma.yourdomain.sail/ to access the database.
+6. Run `dock.sh` to stop the environment.
 
 ---
 
@@ -32,14 +36,14 @@ This repository provides a fully containerized WordPress development environment
 
 **WordPress Admin**
 
-- URL: http://localhost:8081/wp-admin
+- URL: https://yourdomain.sail/wp-admin/
 - Username: `admin`
 - Password: `admin`
 - Email: `admin@example.com`
 
 **phpMyAdmin**
 
-- URL: http://localhost:8080
+- URL: https://pma.yourdomain.sail/
 - Server: `db`
 - Username: `root`
 - Password: `root`
@@ -48,15 +52,17 @@ This repository provides a fully containerized WordPress development environment
 
 ## Features
 
-- One-command WordPress setup with theme auto-activation
+- One-command WordPress install with theme auto-activation
+- Custom local domains and trusted TLS certificates via `mkcert`
 - Persistent database and uploads using Docker volumes
-- Fast rebuilds and isolated environments per theme
-- WP-CLI support for scripted installs and automation
+- WP-CLI for automated tasks and bootstrapping
+- phpMyAdmin included for convenient database access
+- Isolated environments per theme for fast switching and clean separation
 
 ---
 
-## To Do
+## To do
 
-- Add script to pull plugins and DB from production
-- Add optional domain-based routing (e.g. `mytheme.test`)
-- Improve multi-environment support via `.env`
+- Add script to pull plugins and database from production
+- Add support for switching domains on demand
+- Add support for Firefox CA trust
