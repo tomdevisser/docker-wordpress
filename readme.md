@@ -62,8 +62,29 @@ This repository provides a fully containerized WordPress development environment
 
 ---
 
+## Syncing Plugins and Database from Production
+
+You can automatically sync plugins and the database from your live (production) environment to your local development setup.
+
+### Prerequisites
+- Fill in your SSH/SFTP credentials in `config/sail.conf` (`remote_user`, `remote_host`, `remote_port`, `remote_path`, `remote_pass`).
+- Ensure `sshpass` is installed for non-interactive authentication.
+
+### Sync Plugins and Core Version
+- Run `./bin/lib/sync_with_remote.sh`
+  - Downloads all plugins from the remote server to your local `plugins/` folder.
+  - Updates your local WordPress core version to match the remote (only if different).
+  - Requires Docker to be running and the WordPress container to be available as `dev-wordpress`.
+
+### Sync Database
+- Run `./bin/lib/sync_database.sh`
+  - Exports the database from the remote server, downloads it to your local `database/` folder (with a timestamped filename), and imports it into your local WordPress.
+  - Runs a search-replace for the full remote site URL (including protocol) to your local site URL, ensuring all links and assets work correctly.
+  - Cleans up the SQL file from the container after import, but keeps a backup locally.
+
+---
+
 ## To do
 
-- Add script to pull plugins and database from production
 - Add support for switching domains on demand
 - Add support for Firefox CA trust
