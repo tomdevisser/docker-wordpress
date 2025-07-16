@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Initialize variables
+remote_sync=true
+
 # Load the Sail configuration file (needed for domain variable)
 source ./config/sail.conf
 
@@ -11,6 +14,10 @@ fi
 
 # Run requirement checks
 bin/lib/check_requirements.sh
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
 
 # Handle mkcert and certificate generation
 bin/lib/setup_mkcert.sh
@@ -28,6 +35,11 @@ docker compose up -d > /dev/null 2>&1
 
 # Install WordPress and prepare the environment with WP CLI
 bin/lib/install_wordpress.sh
+
+if [ "$remote_sync" = true ]; then
+	bin/lib/sync_with_remote.sh
+	bin/lib/sync_database.sh
+fi
 
 echo "WordPress is up and running!"
 echo "→ Site: https://$domain/"

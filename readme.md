@@ -18,6 +18,7 @@ This repository provides a fully containerized WordPress development environment
   (Docker Desktop is optional — any Docker-compatible runtime works)
 - [`mkcert`](https://github.com/FiloSottile/mkcert) installed for generating trusted local TLS certificates
 - A WordPress theme folder (your own or cloned from Git)
+- [`sshpass`](https://linux.die.net/man/1/sshpass) installed for automated SSH authentication
 
 ---
 
