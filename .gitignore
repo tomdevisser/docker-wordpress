@@ -1,0 +1,3 @@
+sail.conf
+certs/*
+nginx/default.conf
