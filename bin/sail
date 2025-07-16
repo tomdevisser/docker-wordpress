@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Load the Sail configuration file (needed for domain variable)
+source ./config/sail.conf
+
+# Validate the config variables
+if [ -z "$domain" ]; then
+	echo "'domain' is not set in config/sail.conf."
+	exit 1
+fi
+
+# Run requirement checks
+bin/lib/check_requirements.sh
+
+# Handle mkcert and certificate generation
+bin/lib/setup_mkcert.sh
+
+# Set up domains in /etc/hosts
+bin/lib/setup_domains.sh
+
+# Generate dynamic nginx config
+bin/lib/generate_nginx_config.sh
+
+# Spin up Docker containers for WordPress, MySQL, PhpMyAdmin and nginx
+docker compose build > /dev/null 2>&1
+echo "Starting Docker containers for your development environment..."
+docker compose up -d > /dev/null 2>&1
+
+# Install WordPress and prepare the environment with WP CLI
+bin/lib/install_wordpress.sh
+
+echo "WordPress is up and running!"
+echo "→ Site: https://$domain/"
+echo "→ PhpMyAdmin: https://pma.$domain/"

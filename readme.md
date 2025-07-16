@@ -10,7 +10,7 @@ This repository provides a fully containerized WordPress development environment
 - TLS certificates
 - Custom domain mapping
 - WP-CLI for automation (with theme auto-activation and plugin cleanup)
-- Custom `sail.sh` and `dock.sh` scripts for easy bootstrapping and teardown
+- Custom `sail` and `dock` scripts for easy bootstrapping and teardown
 
 ## Requirements
 
@@ -24,11 +24,11 @@ This repository provides a fully containerized WordPress development environment
 ## Getting Started
 
 1. Place your theme files inside the `theme/` directory.
-2. If you'd like to rename the `theme` folder, update all references to `theme` in the config files (`docker-compose.yml`, `sail.conf`, etc.).
-3. Copy `sail.sample.conf` to `sail.conf` and edit your preferred domain name.
-4. Run `sail.sh` to build and start the environment.
+2. If you'd like to rename the `theme` folder, update all references to `theme` in the config files (`docker-compose.yml`, `config/sail.conf`, etc.).
+3. Copy `config/sail.sample.conf` to `config/sail.conf` and edit your preferred domain name.
+4. Run `./bin/sail` to build and start the environment.
 5. Visit https://yourdomain.sail/ to view the site, and https://pma.yourdomain.sail/ to access the database.
-6. Run `dock.sh` to stop the environment.
+6. Run `./bin/dock` to stop the environment.
 
 ---
 
