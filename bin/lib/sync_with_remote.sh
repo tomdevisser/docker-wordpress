@@ -12,7 +12,7 @@ if [[ -z "$remote_user" || -z "$remote_host" || -z "$remote_port" || -z "$remote
   exit 0
 fi
 
-sshpass -p "$remote_pass" rsync -rLtz --delete -e "ssh -p $remote_port -o StrictHostKeyChecking=no" \
+sshpass -p "$remote_pass" rsync -rLtz --delete --exclude=.gitkeep -e "ssh -p $remote_port -o StrictHostKeyChecking=no" \
   "$remote_user@$remote_host:$remote_path/wp-content/plugins/" \
   "$local_plugins_dir/"
 
